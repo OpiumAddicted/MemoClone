@@ -41,21 +41,30 @@ struct ContentView: View {
                             let content =  memo.content;
                             let title = content.split(separator: "\n")
                             
-                            Text(title[0])
+                            Text(title.first ?? "빈 메모")
                                 .foregroundStyle(.black)
                                 .bold()
                                 .font(.title3)
                             
                             Text(memo.created.formatted(
-                                    .dateTime.year().month().day()
-                                    .locale(Locale(identifier: "ko_KR"))
+                                .dateTime.year().month().day()
+                                .locale(Locale(identifier: "ko_KR"))
                                 )
                             )
-                                .foregroundStyle(.gray)
+                            .foregroundStyle(.gray)
                         }
                     }
                 }
             }
+            
+            Button {
+                memos.append(
+                    Memo(content: "")
+                )
+            } label: {
+                Text("메모 추가")
+            }
+            .padding()
         }
     }
 }
