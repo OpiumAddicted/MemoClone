@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-struct Memo: Identifiable {
-    let id = UUID()
-    var content: String
-    let created = Date()
-}
-
 struct ContentView: View {
     @State var memos: [Memo] = [
         .init(content: "Hello world\nafwewf"),
