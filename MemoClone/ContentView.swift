@@ -28,25 +28,36 @@ struct ContentView: View {
             
             List {
                 ForEach($memos) { $memo in
-                    NavigationLink {
-                        MemoView(memo: $memo)
-                    } label: {
-                        VStack(alignment: .leading, spacing: 2) {
-                            let content =  memo.content;
-                            let title = content.split(separator: "\n")
-                            
-                            Text(title.first ?? "빈 메모")
-                                .foregroundStyle(.black)
-                                .bold()
-                                .font(.title3)
-                            
-                            Text(memo.created.formatted(
-                                .dateTime.year().month().day()
-                                .locale(Locale(identifier: "ko_KR"))
+                    HStack {
+                        NavigationLink {
+                            MemoView(memo: $memo)
+                        } label: {
+                            VStack(alignment: .leading, spacing: 2) {
+                                let content =  memo.content;
+                                let title = content.split(separator: "\n")
+                                
+                                Text(title.first ?? "빈 메모")
+                                    .foregroundStyle(.black)
+                                    .bold()
+                                    .font(.title3)
+                                
+                                Text(memo.created.formatted(
+                                    .dateTime.year().month().day()
+                                    .locale(Locale(identifier: "ko_KR"))
+                                    )
                                 )
-                            )
-                            .foregroundStyle(.gray)
+                                .foregroundStyle(.gray)
+                            
+                            }
                         }
+                        
+                        Button {
+                            memos.removeAll { $0.id == memo.id }
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundStyle(Color.red)
+                        }
+                        .buttonStyle(.borderless)
                     }
                 }
             }
